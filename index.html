@@ -1458,7 +1458,86 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
     pintarPortal();
     mostrar('portal');
   }
+  /* ===== CONTINUAR UNA PRÁCTICA SIN TERMINAR (inicio del bloque) ===== */
+  (function () {
+    var CLAVE_P = 'neuro-semestral-pendiente-v1:';
+    var terminada = true, restaurando = false;
+    function llave() { return CLAVE_P + (CON_CUENTAS ? (usuario || '') : 'unico'); }
+    function leerP() { try { return JSON.parse(localStorage.getItem(llave()) || 'null'); } catch (e) { return null; } }
+    function borrarP() { try { localStorage.removeItem(llave()); } catch (e) {} }
+    function guardarP() {
+      if (terminada || restaurando || !estado.fuente || !estado.preguntas.length) return;
+      try {
+        localStorage.setItem(llave(), JSON.stringify({
+          id: estado.fuente.id, t: estado.fuente.t, modo: estado.modo,
+          ids: estado.preguntas.map(function (p) { return p.id; }),
+          ops: estado.opciones, resp: estado.respuestas,
+          seg: Math.round((Date.now() - estado.inicio) / 1000)
+        }));
+      } catch (e) {}
+    }
+    function fuenteDe(pd) {
+      for (var i = 0; i < MODOS.length; i++) if (MODOS[i].id === pd.id) return MODOS[i];
+      var m = /^tema(\d+)$/.exec(pd.id || ''), t = m ? +m[1] : 0;
+      return { id: pd.id, t: pd.t, fijo: !t,
+        arma: function () { return t ? sorteo(Math.min(20, porTema(t).length), [t]) : []; } };
+    }
+    function continuar() {
+      var pd = leerP();
+      if (!pd) return;
+      var mapa = {};
+      BANCO.forEach(function (p) { mapa[p.id] = p; });
+      var preguntas = pd.ids.map(function (id) { return mapa[id]; });
+      if (!preguntas.length || preguntas.some(function (p) { return !p; })) { borrarP(); pintarAviso(); return; }
+      restaurando = true;
+      estado.fuente = fuenteDe(pd);
+      cargarOriginal(preguntas, pd.modo === 'estudio' ? 'estudio' : 'examen');
+      estado.opciones = pd.ops || estado.opciones;
+      estado.respuestas = pd.resp || {};
+      estado.inicio = Date.now() - (pd.seg || 0) * 1000;
+      ponerModoOriginal(estado.modo);
+      restaurando = false;
+      terminada = false;
+    }
+    function pintarAviso() {
+      var pd = (CON_CUENTAS && !usuario) ? null : leerP();
+      var hechas = pd ? Object.keys(pd.resp || {}).length : 0;
+      ['portal', 'inicio'].forEach(function (sec) {
+        var caja = document.getElementById('pendiente-' + sec);
+        if (!caja) {
+          caja = document.createElement('div');
+          caja.id = 'pendiente-' + sec;
+          caja.style.cssText = 'margin:.8rem clamp(.8rem,3vw,1.8rem) 0;padding:.8rem 1rem;border-radius:1rem;' +
+            'background:var(--gc-bg);border:2px solid var(--gc);display:flex;flex-wrap:wrap;gap:.6rem;align-items:center';
+          var sitio = document.querySelector(sec === 'portal' ? '#portal .heroe' : '#inicio .bloque');
+          sitio.parentNode.insertBefore(caja, sitio);
+        }
+        caja.hidden = !hechas;
+        if (!hechas) { caja.innerHTML = ''; return; }
+        caja.innerHTML = '<span style="flex:1 1 12rem;font-weight:700">⏸️ Dejaste una práctica sin terminar: ' +
+          escapar(pd.t) + ' (' + hechas + ' de ' + pd.ids.length + ' contestadas)</span>' +
+          '<button class="btn primario" type="button">▶️ Continuar</button>' +
+          '<button class="btn" type="button">Descartar</button>';
+        var b = caja.querySelectorAll('button');
+        b[0].addEventListener('click', continuar);
+        b[1].addEventListener('click', function () { borrarP(); pintarAviso(); });
+      });
+    }
 
+    var cargarOriginal = cargar, ponerModoOriginal = ponerModo, calificarOriginal = calificar,
+        pintarPortalOriginal = pintarPortal, pintarInicioOriginal = pintarInicio;
+    cargar = function (preguntas, modo) { terminada = false; cargarOriginal(preguntas, modo); guardarP(); };
+    ponerModo = function (modo) { ponerModoOriginal(modo); guardarP(); };
+    calificar = function () { calificarOriginal(); terminada = true; borrarP(); };
+    pintarPortal = function () { pintarPortalOriginal(); pintarAviso(); };
+    pintarInicio = function () { pintarInicioOriginal(); pintarAviso(); };
+    $lista.addEventListener('change', guardarP);
+    ['terminar', 'terminar-2'].forEach(function (id) {
+      $(id).addEventListener('click', function () { terminada = true; borrarP(); pintarAviso(); });
+    });
+    pintarAviso();
+  })();
+  /* ===== CONTINUAR UNA PRÁCTICA SIN TERMINAR (fin del bloque) ===== */
 })();
 </script>
 </body>
