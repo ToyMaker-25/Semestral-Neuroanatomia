@@ -1538,6 +1538,296 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
     pintarAviso();
   })();
   /* ===== CONTINUAR UNA PRÁCTICA SIN TERMINAR (fin del bloque) ===== */
+  /* ===== PREGUNTAS DE DESARROLLO, RESPUESTA CORTA (inicio del bloque) ===== */
+  (function () {
+    /* Usa las mismas preguntas del banco, pero sin opciones: el estudiante escribe la respuesta.
+       CORTAS dice qué preguntas sirven para eso y qué palabras se aceptan (sin tildes).
+       Si el valor es una lista, el segundo dato es la respuesta que se muestra. */
+    var R = { x:' x |vago|decimo|neumogastrico| 10 ', vii:' vii |facial|septimo| 7 ', iv:' iv |troclear|patetico|cuarto| 4 ',
+      iii:' iii |oculomotor|motor ocular comun|tercer| 3 ', viii:' viii |vestibulococlear|coclear|auditivo|octavo| 8 ',
+      ix:' ix |glosofaringeo|noveno| 9 ', v:' v |trigemino|quinto| 5 ', ii:' ii |optico|segundo| 2 ',
+      vi:' vi |abducens|motor ocular externo|sexto| 6 ', vis:'visual|vision|vista', vpl:'vpl|posterolateral',
+      ach:'acetilcolina| ach ', glia:'astrocito|oligodendro|microgl|ependim|schwann', men:'dura.*aracnoides.*pia',
+      limb:'hipocamp|amigdal|cingulo|mamilar|fornix|dentado|frontal', mes:'cuadrigemin|coliculo|nucleo rojo|sustancia negra|pedunculo|tegmento|techo|tectum|acueducto' };
+    var CORTAS = {
+      0:'extrema', 1:'caudado|putamen', 2:'anterior', 4:'(?=.*caudado)(?=.*(lenticular|putamen))', 5:'(?=.*putamen)(?=.*palido)',
+      6:'(?=.*(interno|medial))(?=.*(externo|lateral))', 7:'extrapiramidal', 9:'subtalamic', 10:'corticoespinal|piramidal',
+      11:'corticobulbar|corticonuclear', 12:'radiaciones|talamic', 13:'craneal', 15:'emocion|instint|comportamiento', 16:'memoria|emocion|comportamiento|instint',
+      17:'rojo', 18:'sustancia negra|nucleo rojo|reticular', 19:'lateral',
+      20:R.x, 21:R.vii, 22:R.iv, 23:R.iii, 24:R.vii, 25:'temporal', 26:R.viii, 27:R.vii, 28:R.ix, 29:R.v, 30:'temporal', 31:R.vis, 32:R.ii,
+      40:'bilateral|decusa|cruza', 41:'macula', 44:R.iv, 45:R.vi, 46:'^(?!.*(oftalmic|maxilar)).*(mandibular|trigemino| v | v3 )', 47:'(?=.* iii )(?=.* vii )(?=.* ix )(?=.* x )',
+      48:'preolivar', 49:'etmoid|cribosa', 50:'parotida', 51:'(?=.*(esternocleidomastoideo|ecm))(?=.*trapecio)', 53:'solitario', 55:'colico|esplenico',
+      56:'entorrinal|olfatoria primaria', 57:'pontocerebeloso',
+      58:'pulvinar', 59:'anterior', 60:'cara', 61:R.vis, 62:R.vpl, 63:'diencefalo', 64:'lamina medular', 65:'(?=.*centromediano)(?=.*parafascicular)',
+      66:'cerebel|extrapiramidal|motor', 67:'intertalamica|adhesion', 68:'lateral', 69:'cerebelo', 70:'mamilotalamic', 72:'relevo|retransmi|estacion|sensorial|sensitiv',
+      73:'mamilar', 74:'arciforme|arcuato', 75:'posterior', 76:'anterior', 77:'lateral', 78:'ventromedial', 79:'supraquiasmatico',
+      80:'(?=.*supraoptico)(?=.*paraventricular)', 81:'neurohipofisis|hipofisis posterior', 82:'fornix|mamilar', 83:'frio|temperatura', 84:'diencefalo',
+      85:R.ach, 86:'parasimpatic', 87:R.ach, 88:'noradrenalina|norepinefrina', 89:'sudoripara|sudor|pilos', 90:'corta', 91:'corta',
+      92:'intermediolateral|asta lateral|toracic', 93:'(?=.*(tronco|tallo|craneal))(?=.*sacr)', 94:'dilata|midriasis', 95:'inhibe|disminuye|frena', 96:'dos| 2 ',
+      97:'dura', 98:R.v, 99:'aracnoides', 100:'granulaciones|aracnoid', 101:'cerebral posterior', 102:'carotida interna', 103:'plexo', 104:'acueducto|silvio',
+      105:'150', 106:'ependimari|canal central|conducto central', 107:'carotida interna', 108:'carotida externa', 109:'oftalmica', 110:'cerebral media', 111:'dura',
+      112:'aica|pontina|cerebelosa', 114:' 10 |diez', 115:'subdural', 116:'tienda|tentorio', 117:'500', 118:'(?=.*30)(?=.*45)', 119:'2 3|dos tercios',
+      120:'(?=.* 0 )(?=.* 5 )|mononuclear', 122:'magendie|luschka', 123:'adamkiewicz', 124:'(?=.*(una| 1 |la )[a-z ]*anterior)(?=.*(dos| 2 |las )[a-z ]*posterior)', 125:'rolando|central', 126:'recto',
+      127:'transverso|sigmoide|yugular interna', 128:'vertebral', 129:'medial|frontal', 130:'occipital', 131:'monro|interventricular', 132:'(?=.* 8 )(?=.* 15 )', 133:R.men, 291:' talamo ',
+      301:'inferior', 302:'globoso|emboliforme', 303:'sodio| na ', 304:'nervio', 305:'puente|cerebelo', 306:'superior', 307:'^(?!.*anterior).*espinotalamic', 308:'dentado|parahipocamp',
+      309:'^(?!.*orbitari).*(frontal inferior|broca|opercular)', 310:'temporal', 311:' iv |cuarto| 4 ', 312:'orbitario', 313:'sustancia negra|nucleo rojo|reticular',
+      314:['cervical|tallo', 'Médula cervical (la formación reticular va del tallo encefálico hasta la médula cervical)'], 315:'postcentral', 316:' c |tipo c',
+      317:'meissner', 318:R.vpl, 319:' 8 |ocho', 320:' s1 | s 1 ', 321:'continua', 323:'temporal superior', 324:'temporal', 325:'70', 337:'metencefalo', 343:R.vis,
+      401:R.glia, 402:'occipital', 403:'temperatura|dolor', 404:'neurona', 405:'lenta', 406:'schwann', 408:'transverso|heschl', 409:'frontal inferior|broca', 410:'parietal',
+      411:'bulbo|gracil|cuneiforme', 413:'menor|lenta|baja', 414:['medula', 'Encéfalo y médula espinal (en el Profeta la opción correcta era «Médula espinal»)'],
+      418:'occipital', 419:'bulbo|piramide', 420:R.vpl, 425:'diencefalo', 426:R.limb, 427:R.mes, 428:'lemnisco medial|gracil|cuneiforme', 432:'unipolar',
+      433:'metencefalo|rombencefalo', 434:'supramarginal|angular|parietal inferior', 435:'(shock|choque) (medular|espinal)', 436:' 4 |precentral|motora primaria', 437:'medial|paracentral',
+      438:'frontal inferior', 440:'tono', 441:'fastigial',
+      442:['tacto fino|propiocep|dos puntos|vibra', 'Tacto fino, propiocepción y discriminación de dos puntos (en el Profeta: «Todas las anteriores»)'],
+      443:'hipocampo', 444:['cingulo|hipocamp|frontal|amigdal', 'Cíngulo, parahipocampo y región basal y medial del frontal (en el Profeta: «Todas las anteriores»)'],
+      502:'subdural', 503:'bipolar', 504:'intervertebral|conjuncion', 505:'blanca', 507:'dendrita', 508:'medula', 509:'subaracnoideo', 511:'reposo',
+      512:'axodendritica|axosomatica|axoaxonica', 513:'^(?!.*t12).*(l1|l2)', 514:'filum', 515:'refractario', 517:'mielina', 518:R.men, 522:'craneales|raquideos|espinales|ganglio',
+      523:'accion', 525:'sinapsis',
+      600:'ectodermo', 601:'tercera| 3 |18', 602:'encefalo', 603:'(?=.*telencefalo)(?=.*diencefalo)', 604:'bulbo', 605:'telencefalo', 606:'tercer| iii | 3 ',
+      607:'acueducto|silvio', 608:'ganglio', 609:'(?=.*mesencefalo)(?=.*puente)(?=.*bulbo)', 610:'folico', 611:'liso|cardiaco|involuntari|viscera',
+      612:'hipotalamo|epitalamo', 613:'multipolar', 614:'retina|coclea|vestibular', 615:'corto', 616:'potasio| k ', 617:'saca[a-z ]* 3 (na|sodio).*(mete|entra)[a-z ]* 2 (k|potasio)', 618:'sodio| na ',
+      619:'cloro| cl ', 620:'ningun|no puede|no se puede|no responde', 621:'quimica', 622:'oligodendro', 623:'microglia', 624:'ependim', 625:'astrocito', 626:'vesicula',
+      627:'perineuro', 628:'epineuro', 629:'una sola|una fibra|sola| 1 |un axon', 630:'^(?!.*(sin mielina|amielin|no mielin)).*(mielin|ranvier)', 631:'alfa', 632:'(?=.*(diametro|tamano|grosor))(?=.*mielin)', 633:'pacini', 634:'libre',
+      635:'longitud|estiramiento', 636:'tension', 637:'t10|t 10', 638:'l4|l 4', 639:'(?=.*c5)(?=.*t1)', 640:'neurotmesis', 641:'distal', 642:R.ach, 643:'cerebelo',
+      644:'l1|l2', 645:'cauda|cola de caballo', 646:'31', 647:'anterior|lamina ix', 648:'intermediolateral|asta lateral|toracic', 649:'inferior',
+      650:'medula|mismo segmento|comisura', 651:'ganglio', 652:'asta posterior', 653:'85', 654:'^(?!.*anterior).*(capsula interna|brazo posterior)', 655:'flexion|flexor', 658:'2 3|dos tercios',
+      660:'monosinaptico', 661:'grueso|protopatico|presion', 662:'paraplej', 663:'corticoespinal|piramidal', 664:'preolivar', 665:'(?=.* ix )(?=.* x )(?=.* xi )',
+      666:'pontocerebeloso', 667:'interpeduncular', 668:'trigemino| v ', 669:'auditiva|audicion', 670:'puente', 671:'corticoespinal|piramidal', 672:'mesencefalo',
+      673:'motora', 674:'parkinson', 675:'bulbo', 676:'(?=.*bulbo)(?=.*puente)', 677:'granulosa.*purkinje.*molecular', 678:'equilibrio', 679:'floculonodular',
+      680:'paleocerebelo', 681:'dentado', 682:'talamo', 683:'rojo', 684:'vestibular', 685:'inferior', 688:'espinocerebeloso', 689:'central|rolando', 690:' 4 ',
+      691:'ocular|ojos', 692:'temporal', 693:'arcuato|arqueado', 694:'lenguaje', 695:'seis| 6 ', 696:'calloso', 697:'mismo hemisferio', 698:'lateral|inferior',
+      699:'neuronas|precision', 700:'17', 701:'insula', 703:'uncus|gancho', 704:'postcentral|parietal', 705:'silvio|lateral', 706:'tegmento', 708:'mediana',
+      709:'mamilar', 710:'anterior', 712:'amigdal', 713:'calloso', 714:'entorrinal', 715:'frontal',
+      716:['motor|musculo|autonom|vigilia|sueno|sensitiv', 'Control del músculo esquelético, regulación del sistema nervioso autónomo y estado de vigilia (en el Profeta: «Todas las anteriores»)']
+    };
+    var LISTA = BANCO.filter(function (p) { return CORTAS[p.id] !== undefined; });
+    function patron(p) { var c = CORTAS[p.id]; return typeof c === 'string' ? c : c[0]; }
+    function respuesta(p) { var c = CORTAS[p.id]; return typeof c === 'string' ? p.o[p.r] : c[1]; }
+
+    var POR_RONDA = 15;
+    var ronda = [], hechas = {}, temaSel = 0, inicioD = 0, calificadaD = false;
+
+    var css = document.createElement('style');
+    css.textContent =
+      '.des-cab{padding:1.3rem clamp(1.1rem,4vw,3.2rem) 0;max-width:calc(46rem + 2*clamp(1.1rem,4vw,3.2rem))}' +
+      '.des-cab h2{font-family:var(--sans);font-weight:900;font-size:1.5rem;line-height:1.15;margin:0 0 .3rem}' +
+      '.des-cab p{margin:0 0 .8rem;color:var(--ink-2);font-size:.92rem}' +
+      '.des-fila{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}' +
+      '.des-fila select{font:inherit;font-size:.9rem;font-weight:700;padding:.4rem .7rem;border-radius:2rem;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);max-width:100%}' +
+      '.des-linea{display:flex;gap:.5rem;align-items:stretch}' +
+      '.des-in{flex:1 1 0;width:0;min-width:0;font:inherit;font-size:1.02rem;font-weight:600;padding:.6rem .85rem;border-radius:.8rem;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink)}' +
+      '.des-in:focus-visible{outline:2px solid var(--marca);outline-offset:2px}' +
+      '.des-in.bien{border-color:var(--ok);background:var(--ok-bg)}.des-in.mal{border-color:var(--mal);background:var(--mal-bg)}' +
+      '.des-v{margin:.7rem 0 0;padding:.65rem .85rem;border-radius:.8rem;font-size:.95rem}' +
+      '.des-v.bien{background:var(--ok-bg);border:1.5px solid color-mix(in srgb,var(--ok) 45%,transparent)}' +
+      '.des-v.mal{background:var(--mal-bg);border:1.5px solid color-mix(in srgb,var(--mal) 45%,transparent)}' +
+      '.des-v b.t{display:block;margin-bottom:.15rem}.des-v.bien b.t{color:var(--ok)}.des-v.mal b.t{color:var(--mal)}' +
+      '.des-v .ex{display:block;margin-top:.3rem;color:var(--ink-2);font-size:.9rem}' +
+      '.des-cambio{font:inherit;font-size:.8rem;font-weight:700;margin-top:.5rem;padding:.25rem .7rem;border-radius:2rem;cursor:pointer;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)}';
+    document.head.appendChild(css);
+
+    var sec = document.createElement('section');
+    sec.id = 'desarrollo';
+    sec.hidden = true;
+    sec.innerHTML =
+      '<div class="controles"><button class="btn" type="button" id="des-volver">← Menú</button>' +
+      '<button class="btn primario" type="button" id="des-calificar">Calificar</button>' +
+      '<span class="avance" id="des-avance">0 / 0</span></div>' +
+      '<div class="des-cab"><h2>✍️ Desarrollo: respuesta corta</h2>' +
+      '<p>Son las mismas preguntas del banco, pero sin opciones. Escribe la respuesta en pocas palabras y toca «Comprobar» (o Enter).</p>' +
+      '<div class="des-fila"><select id="des-tema" aria-label="Tema"></select>' +
+      '<button class="btn" type="button" id="des-nuevas">🔀 Otras preguntas</button></div></div>' +
+      '<div class="resultado" id="des-resultado" hidden></div>' +
+      '<main class="lista" id="des-lista"></main>' +
+      '<div class="pie-practica"><button class="btn primario" type="button" id="des-calificar-2">Calificar</button></div>';
+    var hoja = document.querySelector('.hoja');
+    hoja.insertBefore(sec, hoja.querySelector('footer'));
+
+    var sel = $('des-tema');
+    sel.innerHTML = '<option value="0">Todos los temas (' + LISTA.length + ' preguntas)</option>' + LISTA_TEMAS.map(function (t) {
+      var n = LISTA.filter(function (p) { return p.t === t; }).length;
+      return '<option value="' + t + '">Tema ' + t + ' · ' + TEMAS[t] + ' (' + n + ')</option>';
+    }).join('');
+
+    var mostrarOriginal = mostrar;
+    mostrar = function (cual) {
+      sec.hidden = cual !== 'desarrollo';
+      mostrarOriginal(cual === 'desarrollo' ? '' : cual);
+    };
+
+    function limpiar(t) {
+      t = String(t || '').toLowerCase();
+      if (t.normalize) t = t.normalize('NFD').replace(new RegExp('[' + String.fromCharCode(768) + '-' + String.fromCharCode(879) + ']', 'g'), '');
+      return ' ' + t.replace(/[^a-z0-9]+/g, ' ') + ' ';
+    }
+
+    function armarRonda() {
+      var d = almacen.leer(), temas = temaSel ? [temaSel] : LISTA_TEMAS;
+      var total = Math.min(POR_RONDA, LISTA.filter(function (p) { return temas.indexOf(p.t) >= 0; }).length);
+      var usadas = {}, dentro = {}, out = [];
+      function tomarD(pool, k) {
+        var orden = barajar(pool.slice()).sort(function (a, b) { return (d.vis['C' + a.id] || 0) - (d.vis['C' + b.id] || 0); });
+        var res = [], repes = [];
+        orden.forEach(function (p) {
+          if (dentro[p.id]) return;
+          if (usadas[p.k]) { repes.push(p); return; }
+          if (res.length < k) { usadas[p.k] = true; res.push(p); }
+        });
+        while (res.length < k && repes.length) res.push(repes.shift());
+        res.forEach(function (p) { dentro[p.id] = true; });
+        return res;
+      }
+      cuotas(total, temas).forEach(function (c) {
+        out = out.concat(tomarD(LISTA.filter(function (p) { return p.t === c.t; }), c.n));
+      });
+      if (out.length < total) out = out.concat(tomarD(LISTA.filter(function (p) { return temas.indexOf(p.t) >= 0; }), total - out.length));
+      ronda = barajar(out);
+      ronda.forEach(function (p) { d.vis['C' + p.id] = (d.vis['C' + p.id] || 0) + 1; });
+      almacen.guardar(d);
+      hechas = {}; calificadaD = false; inicioD = Date.now();
+      $('des-resultado').hidden = true;
+      $('des-calificar').hidden = $('des-calificar-2').hidden = false;
+      pintarD();
+    }
+
+    function veredicto(p) {
+      var h = hechas[p.id];
+      return '<div class="des-v ' + (h.ok ? 'bien' : 'mal') + '"><b class="t">' + (h.ok ? '✅ ¡Correcta!' : h.txt ? '❌ Incorrecta' : '⚪ Sin contestar') + '</b>' +
+        '<b>Respuesta:</b> ' + respuesta(p) + '<span class="ex">' + p.e + '</span>' +
+        (calificadaD ? '' : '<button class="des-cambio" type="button" data-cambio="' + p.id + '">' + (h.ok ? 'En realidad la tuve mal' : 'Mi respuesta sí estaba bien') + '</button>') + '</div>';
+    }
+
+    function tarjeta(p, n) {
+      var h = hechas[p.id];
+      return '<div class="p-cab"><span class="p-num">' + n + '</span><span class="p-tema">' + EMO[p.t] + ' Tema ' + p.t + ' · ' + TEMAS[p.t] + '</span>' +
+        (p.sem ? '<span class="p-real sem">⭐ Salió en el semestral</span>' : '') + (p.real ? '<span class="p-real">📌 Salió en parcial</span>' : '') + '</div>' +
+        '<p class="p-q">' + p.q + '</p>' +
+        '<div class="des-linea"><input class="des-in' + (h ? (h.ok ? ' bien' : ' mal') : '') + '" type="text" id="des-i' + p.id + '" data-in="' + p.id + '" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Tu respuesta…"' +
+        (h ? ' readonly value="' + escapar(h.txt) + '"' : '') + '>' +
+        (h ? '' : '<button class="btn primario" type="button" data-ok="' + p.id + '">Comprobar</button>') + '</div>' +
+        (h ? veredicto(p) : '');
+    }
+
+    function pintarD() {
+      var escrito = {};
+      ronda.forEach(function (p) { var i = $('des-i' + p.id); if (i && !hechas[p.id]) escrito[p.id] = i.value; });
+      var lista = $('des-lista');
+      lista.innerHTML = '';
+      ronda.forEach(function (p, i) {
+        var card = document.createElement('section');
+        card.className = 'p t' + p.t;
+        card.id = 'des-p' + p.id;
+        card.innerHTML = tarjeta(p, i + 1);
+        lista.appendChild(card);
+        if (escrito[p.id]) $('des-i' + p.id).value = escrito[p.id];
+      });
+      avanceD();
+    }
+
+    function avanceD() {
+      $('des-avance').textContent = ronda.filter(function (p) { return hechas[p.id]; }).length + ' / ' + ronda.length;
+    }
+    function buscar(id) { for (var i = 0; i < ronda.length; i++) if (ronda[i].id === id) return ronda[i]; return null; }
+    function repintar(p) { $('des-p' + p.id).innerHTML = tarjeta(p, ronda.indexOf(p) + 1); avanceD(); }
+
+    function comprobar(id, saltar) {
+      var p = buscar(id);
+      if (!p || hechas[id] || calificadaD) return;
+      var txt = $('des-i' + id).value.replace(/\s+/g, ' ').trim();
+      if (!txt) { $('des-i' + id).focus(); return; }
+      hechas[id] = { txt: txt, ok: new RegExp(patron(p)).test(limpiar(txt)) };
+      repintar(p);
+      if (saltar) {
+        for (var i = ronda.indexOf(p) + 1; i < ronda.length; i++) {
+          if (!hechas[ronda[i].id]) { $('des-i' + ronda[i].id).focus(); break; }
+        }
+      }
+    }
+
+    $('des-lista').addEventListener('click', function (ev) {
+      var t = ev.target;
+      if (t.getAttribute('data-ok')) comprobar(+t.getAttribute('data-ok'), false);
+      else if (t.getAttribute('data-cambio')) {
+        var p = buscar(+t.getAttribute('data-cambio'));
+        if (p && hechas[p.id] && !calificadaD) { hechas[p.id].ok = !hechas[p.id].ok; repintar(p); }
+      }
+    });
+    $('des-lista').addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' && ev.target.getAttribute('data-in')) { ev.preventDefault(); comprobar(+ev.target.getAttribute('data-in'), true); }
+    });
+
+    function calificarD() {
+      if (calificadaD || !ronda.length) return;
+      var r = $('des-resultado');
+      var contestadas = ronda.filter(function (p) { return hechas[p.id]; }).length;
+      if (!contestadas) {
+        r.hidden = false; r.className = 'resultado gC';
+        r.innerHTML = '<p class="mensaje">Primero contesta al menos una pregunta y toca «Comprobar».</p>';
+        return;
+      }
+      calificadaD = true;
+      var buenas = 0, porT = {};
+      ronda.forEach(function (p) {
+        if (!hechas[p.id]) hechas[p.id] = { txt: '', ok: false };
+        porT[p.t] = porT[p.t] || { b: 0, n: 0 };
+        porT[p.t].n++;
+        if (hechas[p.id].ok) { buenas++; porT[p.t].b++; }
+      });
+      var n = ronda.length, nota = Math.round(buenas / n * 100), L = letraDe(nota);
+      var d = almacen.leer();
+      d.intentos.unshift({ f: Date.now(), est: 1, tipo: 'desarrollo', etiqueta: '✍️ Desarrollo' + (temaSel ? ' · Tema ' + temaSel : ''),
+        n: n, buenas: buenas, contestadas: contestadas, nota: nota, seg: Math.round((Date.now() - inicioD) / 1000) });
+      d.intentos = d.intentos.slice(0, 40);
+      almacen.guardar(d);
+
+      var temas = Object.keys(porT).map(Number).sort(function (a, b) { return a - b; });
+      var flojos = temas.filter(function (t) { return porT[t].b / porT[t].n * 100 < PASA; });
+      r.className = 'resultado g' + L;
+      r.innerHTML = '<div class="res-cab"><div class="res-letra">' + L + '</div><div class="res-tx"><div class="res-emo" aria-hidden="true">' + NOTAS[L].e +
+        '</div><h2>' + NOTAS[L].t + '</h2></div></div>' +
+        '<p class="nota">' + nota + '<small> / 100</small></p>' +
+        '<p class="detalle">✅ <b>' + buenas + '</b> buenas de ' + n + ' · ❌ ' + (contestadas - buenas) + ' malas · ⚪ ' + (n - contestadas) + ' sin contestar · ⏱️ ' +
+        duracion(Math.round((Date.now() - inicioD) / 1000)) + '</p>' +
+        (flojos.length ? '<p class="repasa"><b>📖 Repasa primero:</b> ' + flojos.slice(0, 4).map(function (t) { return 'Tema ' + t + ' (' + TEMAS[t] + ')'; }).join(', ') + '.</p>' : '') +
+        '<div class="acciones"><button class="btn primario" type="button" id="des-otra">🔀 Otra ronda</button>' +
+        '<button class="btn" type="button" id="des-menu">Volver al menú</button></div>';
+      r.hidden = false;
+      $('des-calificar').hidden = $('des-calificar-2').hidden = true;
+      pintarD();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (L === 'A' || L === 'B') confeti(['✍️', '⭐', '✨', '🧠']);
+      $('des-otra').addEventListener('click', function () { armarRonda(); window.scrollTo({ top: 0 }); });
+      $('des-menu').addEventListener('click', salirD);
+    }
+
+    function salirD() { pintarInicio(); mostrar('inicio'); }
+    function abrirD() { armarRonda(); mostrar('desarrollo'); }
+
+    $('des-volver').addEventListener('click', salirD);
+    $('des-calificar').addEventListener('click', calificarD);
+    $('des-calificar-2').addEventListener('click', calificarD);
+    $('des-nuevas').addEventListener('click', function () { armarRonda(); window.scrollTo({ top: 0 }); });
+    sel.addEventListener('change', function () { temaSel = +sel.value; armarRonda(); });
+
+    /* tarjeta en el menú */
+    function ponerTarjeta() {
+      var cont = $('modos');
+      if (!cont || $('des-entrada')) return;
+      var b = document.createElement('button');
+      b.className = 'modo-c t5';
+      b.type = 'button';
+      b.id = 'des-entrada';
+      b.innerHTML = '<span class="ico" aria-hidden="true">✍️</span><span class="t">Desarrollo: respuesta corta</span>' +
+        '<span class="d">Por si el profe pone desarrollo: las mismas preguntas, pero sin opciones. Tú escribes la respuesta y te la corrige.</span>' +
+        '<span class="n">Desarrollo · ' + POR_RONDA + ' por ronda · ' + LISTA.length + ' preguntas</span>';
+      b.addEventListener('click', abrirD);
+      cont.appendChild(b);
+    }
+    var pintarInicioAntes = pintarInicio;
+    pintarInicio = function () { pintarInicioAntes(); ponerTarjeta(); };
+    ponerTarjeta();
+  })();
+  /* ===== PREGUNTAS DE DESARROLLO, RESPUESTA CORTA (fin del bloque) ===== */
 })();
 </script>
 </body>
