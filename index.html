@@ -1538,7 +1538,7 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
     pintarAviso();
   })();
   /* ===== CONTINUAR UNA PRÁCTICA SIN TERMINAR (fin del bloque) ===== */
-  /* ===== PREGUNTAS DE DESARROLLO, RESPUESTA CORTA (inicio del bloque) ===== */
+  /* ===== PREGUNTAS DE DESARROLLO Y SEMESTRAL ACTUAL (inicio del bloque) ===== */
   (function () {
     /* Usa las mismas preguntas del banco, pero sin opciones: el estudiante escribe la respuesta.
        CORTAS dice qué preguntas sirven para eso y qué palabras se aceptan (sin tildes).
@@ -1600,13 +1600,65 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
       709:'mamilar', 710:'anterior', 712:'amigdal', 713:'calloso', 714:'entorrinal', 715:'frontal',
       716:['motor|musculo|autonom|vigilia|sueno|sensitiv', 'Control del músculo esquelético, regulación del sistema nervioso autónomo y estado de vigilia (en el Profeta: «Todas las anteriores»)']
     };
+    /* ---------- Semestral actual (7 de octubre de 2026), tal como salió en las fotos ---------- */
+    var ACT_DES = [
+      [1, 'Describa las partes en las que se diferencia el rombencéfalo.', 'Metencéfalo (puente y cerebelo) y mielencéfalo (bulbo raquídeo)', '(?=.*metencefal)(?=.*mielencefal)', 'El rombencéfalo se divide en metencéfalo, que da el puente y el cerebelo, y mielencéfalo, que da el bulbo.'],
+      [4, '¿Dónde está ubicado el cono medular?', 'A nivel de L1-L2', 'l1|l2', 'En el adulto la médula termina en el cono medular, a nivel de L1-L2.'],
+      [2, 'Fenómeno eléctrico por medio del cual una neurona se vuelve menos excitable.', 'Hiperpolarización', 'hiperpolariz', 'Entra Cl⁻ (o sale K⁺), el interior se vuelve más negativo y cuesta más llegar al umbral.'],
+      [2, '¿Dónde se encuentran ubicadas las neuronas pseudounipolares?', 'En el ganglio de la raíz dorsal', 'ganglio', 'Son las neuronas sensitivas del ganglio de la raíz dorsal (1.ª neurona de las vías sensitivas).'],
+      [3, 'Raíz nerviosa relacionada con la sensibilidad del maléolo interno del miembro inferior.', 'L4', ' l4 | l 4 ', 'Puntos de referencia de los dermatomas: tetillas T4, ombligo T10, maléolo interno L4, dorso del pie L5.'],
+      [4, '¿Por cuál cordón viaja el haz corticoespinal dentro de la médula espinal?', 'Por el cordón lateral (corticoespinal lateral)', 'lateral', 'Cerca del 85 % cruza en las pirámides y baja por el cordón lateral; el resto baja por el cordón anterior.'],
+      [4, 'Haz encargado de llevar aferencias para el control del tono muscular.', 'Haces espinocerebelosos', 'espinocerebel', 'Llevan al cerebelo la propiocepción inconsciente, y el cerebelo regula el tono.'],
+      [7, 'Porciones del giro frontal inferior relacionadas con el área motora del lenguaje.', 'Porciones opercular y triangular (área de Broca, 44 y 45)', '(?=.*opercular)(?=.*triangular)', 'El área de Broca ocupa las porciones opercular y triangular del giro frontal inferior del hemisferio dominante.'],
+      [8, '¿Dónde se encuentran ubicados los núcleos de la formación reticular?', 'En el tegmento del tallo encefálico (de la médula cervical al mesencéfalo)', 'tegment|tallo|tronco', 'Ocupa la porción media (tegmento) del bulbo, el puente y el mesencéfalo, y llega a la médula cervical.'],
+      [10, 'Origen aparente del XII nervio craneal.', 'Surco preolivar', 'preolivar', 'El hipogloso sale entre la pirámide y la oliva del bulbo.'],
+      [10, 'Orificio de la fosa craneal media ocupado por la rama mandibular del nervio trigémino.', 'Agujero oval', 'oval', 'V1 sale por la fisura orbitaria superior, V2 por el agujero redondo y V3 por el agujero oval.'],
+      [6, 'Núcleo cerebeloso relacionado con la regulación del movimiento.', 'Núcleo dentado', 'dentado', 'Dentado = neocerebelo = movimiento; fastigial = equilibrio; interpósito = tono.'],
+      [6, 'Vía eferente del arquicerebelo.', 'Pedúnculo cerebeloso inferior, hacia los núcleos vestibulares', 'inferior|restiforme|vestibular', 'El arquicerebelo (núcleo fastigial) sale por el pedúnculo inferior (cuerpo restiforme) hacia los núcleos vestibulares.'],
+      [14, 'Estructura que comunica el LCR entre los ventrículos laterales y el III ventrículo.', 'Foramen de Monro (interventricular)', 'monro|interventricular', 'Del III al IV ventrículo pasa por el acueducto de Silvio.'],
+      [12, 'Núcleo hipotalámico que funciona como el centro del hambre.', 'Hipotálamo lateral', 'lateral', 'El centro de la saciedad son los núcleos ventromedial y dorsomedial.'],
+      [13, 'Función parasimpática sobre la pupila y a través de qué nervio se envía la información.', 'Miosis (contrae la pupila), por el III par (oculomotor)', '(?=.*(miosis|contrae|contraccion|constric))(?=.*( iii |oculomotor|motor ocular comun|tercer))', 'Las fibras salen del núcleo de Edinger-Westphal por el III par y hacen sinapsis en el ganglio ciliar.'],
+      [4, 'Principal arteria que irriga la médula espinal.', 'Arteria espinal anterior', 'espinal anterior', 'Irriga los 2/3 anteriores; las dos espinales posteriores irrigan el 1/3 posterior.'],
+      [14, 'Rama terminal de la arteria basilar.', 'Arterias cerebrales posteriores', 'cerebrales? posterior', 'La basilar termina dividiéndose en las dos cerebrales posteriores.'],
+      [14, 'Cubierta meníngea de donde se derivan los senos venosos.', 'Duramadre', 'dura', 'Los senos venosos se forman entre las dos capas de la duramadre.'],
+      [10, 'Músculos inervados por el nervio accesorio.', 'Esternocleidomastoideo y trapecio', '(?=.*(esternocleidomastoideo|ecm))(?=.*trapecio)', 'El XI par (porción espinal) inerva el esternocleidomastoideo y el trapecio.']
+    ].map(function (a, i) { return { id: 9001 + i, n: i + 1, t: a[0], q: a[1], ans: a[2], pat: a[3], e: a[4], k: 'act-d' + i, act: 1 }; });
+ 
+    var ACT_MCQ = [
+      [6, 'La corteza cerebelosa está formada por:', ['Capa molecular', 'Capa piramidal', 'Capa de células Meissner', 'Todas las anteriores'], 0, 'Sus capas son molecular, de Purkinje y granulosa; Meissner es un receptor del tacto.', 'molecular|purkinje|granulos'],
+      [6, 'Núcleo cerebeloso que se localiza en el techo del IV ventrículo:', ['Núcleo dentado', 'Núcleo fastigial', 'Núcleo globoso', 'Todos los anteriores'], 1, 'El fastigial es el «núcleo del techo».', 'fastigial'],
+      [2, 'Principal electrolito intracelular en el potencial de membrana neuronal:', ['Sodio', 'Calcio', 'Potasio', 'Todas las anteriores'], 2, 'El potasio es el principal de adentro; el sodio, el de afuera.', 'potasio| k '],
+      [3, 'El conjunto de fibras dentro del SNC se denomina:', ['Tracto', 'Nervio', 'Comisura', 'Ninguna de las anteriores'], 0, 'En el SNC es tracto o haz; en el SNP, nervio.', 'tracto|haz'],
+      [1, 'El diencéfalo está formado por:', ['Hemisferios cerebrales', 'Puente', 'Tálamo', 'Todas las anteriores'], 2, 'Hemisferios = telencéfalo; puente = metencéfalo.', 'talamo'],
+      [6, 'Principal vía aferente al cerebelo:', ['Pedúnculo cerebeloso superior', 'Pedúnculo cerebeloso medio', 'Pedúnculo cerebeloso inferior', 'Ninguna de las anteriores'], 2, 'Por el inferior entra la mayor parte; el superior es la principal salida.', 'inferior|restiforme'],
+      [11, 'Estructura talámica:', ['Cuerpos geniculados', 'Comisura posterior', 'Epitálamo', 'Todas las anteriores'], 0, 'Los geniculados son del tálamo; la comisura posterior es del epitálamo, otra parte del diencéfalo.', 'geniculad|pulvinar|vpl|vpm|intertalamica|lamina medular'],
+      [4, 'Principal haz encargado del mantenimiento del tono muscular:', ['Espinotalámico anterior', 'Espinotalámico lateral', 'Espinocerebeloso', 'Todos los anteriores'], 2, 'Lleva al cerebelo la propiocepción inconsciente.', 'espinocerebel'],
+      [8, 'Es un núcleo relacionado con el sistema límbico:', ['Caudado', 'Amígdala', 'Putamen', 'Todos los anteriores'], 1, 'Caudado y putamen son núcleos basales.', 'amigdal|mamilar|anterior del talamo|accumbens'],
+      [7, 'Sustancia blanca que relaciona lóbulos diferentes del mismo hemisferio cerebral:', ['Comisuras', 'Fibras de asociación', 'Fibras de proyección', 'Todas las anteriores'], 1, 'Las comisurales unen los dos hemisferios; las de proyección van a estructuras de abajo.', 'asociacion'],
+      [7, 'El haz corticoespinal presenta fibras:', ['De asociación', 'De proyección', 'Comisurales', 'Todas las anteriores'], 1, 'Une la corteza con la médula: son fibras de proyección.', 'proyeccion'],
+      [7, 'Giro donde se encuentra el área motora del lenguaje:', ['Giro frontal inferior', 'Giro temporal superior', 'Giro del cíngulo', 'Giro supramarginal'], 0, 'Área de Broca; el temporal superior es Wernicke.', 'frontal inferior|broca'],
+      [7, 'Lóbulo donde se realiza la interpretación visual:', ['Frontal', 'Temporal', 'Occipital', 'Ninguno de los anteriores'], 2, 'Área 17, alrededor de la cisura calcarina.', 'occipital'],
+      [7, 'El giro supramarginal rodea a la porción más posterior de:', ['Surco de Silvio', 'Surco temporal superior', 'Surco temporal inferior', 'Ninguno de los anteriores'], 0, 'El angular es el que rodea el final del surco temporal superior.', 'silvio|lateral'],
+      [1, 'Cavidad del diencéfalo:', ['III ventrículo', 'Ventrículos laterales', 'Foramen de Monro', 'Todas las anteriores'], 0, 'Los ventrículos laterales son del telencéfalo.', 'tercer| iii | 3 ']
+    ].map(function (a, i) { return { id: 9101 + i, n: i + 1, t: a[0], q: a[1], o: a[2], r: a[3], e: a[4], pat: a[5], fijo: 1, k: 'act-m' + i, act: 1 }; });
+ 
     var LISTA = BANCO.filter(function (p) { return CORTAS[p.id] !== undefined; });
-    function patron(p) { var c = CORTAS[p.id]; return typeof c === 'string' ? c : c[0]; }
-    function respuesta(p) { var c = CORTAS[p.id]; return typeof c === 'string' ? p.o[p.r] : c[1]; }
-
+    function patron(p) { if (p.pat) return p.pat; var c = CORTAS[p.id]; return typeof c === 'string' ? c : c[0]; }
+    function respuesta(p) { if (p.ans) return p.ans; if (p.act) return p.o[p.r]; var c = CORTAS[p.id]; return typeof c === 'string' ? p.o[p.r] : c[1]; }
+ 
     var POR_RONDA = 15;
-    var ronda = [], hechas = {}, temaSel = 0, inicioD = 0, calificadaD = false;
-
+    var GRUPOS = {
+      todos: { t: 'Todos los temas', f: function () { return true; } },
+      profeta: { t: '⭐ Solo el Profeta del semestral', f: function (p) { return p.sem; } },
+      pesados: { t: '🏋️ Lo que más pesa (Temas 14, 7, 4 y 10)', f: function (p) { return PESADOS.indexOf(p.t) >= 0; } }
+    };
+    LISTA_TEMAS.forEach(function (t) { GRUPOS['t' + t] = { t: 'Tema ' + t + ' · ' + TEMAS[t], f: function (p) { return p.t === t; } }; });
+    var ACTUALES = {
+      act_des: { t: '📅 Semestral actual · Desarrollo', lista: ACT_DES, puntos: 60 },
+      act_todo: { t: '📅 Semestral actual · Las 35 escritas', lista: ACT_DES.concat(ACT_MCQ), puntos: 0 }
+    };
+    var ronda = [], hechas = {}, grupo = 'todos', inicioD = 0, calificadaD = false;
+ 
     var css = document.createElement('style');
     css.textContent =
       '.des-cab{padding:1.3rem clamp(1.1rem,4vw,3.2rem) 0;max-width:calc(46rem + 2*clamp(1.1rem,4vw,3.2rem))}' +
@@ -1623,9 +1675,11 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
       '.des-v.mal{background:var(--mal-bg);border:1.5px solid color-mix(in srgb,var(--mal) 45%,transparent)}' +
       '.des-v b.t{display:block;margin-bottom:.15rem}.des-v.bien b.t{color:var(--ok)}.des-v.mal b.t{color:var(--mal)}' +
       '.des-v .ex{display:block;margin-top:.3rem;color:var(--ink-2);font-size:.9rem}' +
-      '.des-cambio{font:inherit;font-size:.8rem;font-weight:700;margin-top:.5rem;padding:.25rem .7rem;border-radius:2rem;cursor:pointer;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)}';
+      '.des-cambio{font:inherit;font-size:.8rem;font-weight:700;margin-top:.5rem;padding:.25rem .7rem;border-radius:2rem;cursor:pointer;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2)}' +
+      '.p-real.act{background:var(--gb-bg);color:var(--gb)}' +
+      '#actual-bloque .modo-c{border-color:color-mix(in srgb,var(--gb) 45%,var(--line));background:color-mix(in srgb,var(--gb) 9%,var(--surface))}';
     document.head.appendChild(css);
-
+ 
     var sec = document.createElement('section');
     sec.id = 'desarrollo';
     sec.hidden = true;
@@ -1633,81 +1687,97 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
       '<div class="controles"><button class="btn" type="button" id="des-volver">← Menú</button>' +
       '<button class="btn primario" type="button" id="des-calificar">Calificar</button>' +
       '<span class="avance" id="des-avance">0 / 0</span></div>' +
-      '<div class="des-cab"><h2>✍️ Desarrollo: respuesta corta</h2>' +
-      '<p>Son las mismas preguntas del banco, pero sin opciones. Escribe la respuesta en pocas palabras y toca «Comprobar» (o Enter).</p>' +
-      '<div class="des-fila"><select id="des-tema" aria-label="Tema"></select>' +
+      '<div class="des-cab"><h2 id="des-titulo">✍️ Desarrollo: respuesta corta</h2>' +
+      '<p id="des-sub">Son las mismas preguntas del banco, pero sin opciones. Escribe la respuesta en pocas palabras y toca «Comprobar» (o Enter).</p>' +
+      '<div class="des-fila" id="des-fila"><select id="des-tema" aria-label="Qué preguntas"></select>' +
       '<button class="btn" type="button" id="des-nuevas">🔀 Otras preguntas</button></div></div>' +
       '<div class="resultado" id="des-resultado" hidden></div>' +
       '<main class="lista" id="des-lista"></main>' +
       '<div class="pie-practica"><button class="btn primario" type="button" id="des-calificar-2">Calificar</button></div>';
     var hoja = document.querySelector('.hoja');
     hoja.insertBefore(sec, hoja.querySelector('footer'));
-
+ 
+    function cuantas(g) { return LISTA.filter(GRUPOS[g].f).length; }
     var sel = $('des-tema');
-    sel.innerHTML = '<option value="0">Todos los temas (' + LISTA.length + ' preguntas)</option>' + LISTA_TEMAS.map(function (t) {
-      var n = LISTA.filter(function (p) { return p.t === t; }).length;
-      return '<option value="' + t + '">Tema ' + t + ' · ' + TEMAS[t] + ' (' + n + ')</option>';
+    sel.innerHTML = ['todos', 'profeta', 'pesados'].map(function (g) {
+      return '<option value="' + g + '">' + GRUPOS[g].t + ' (' + cuantas(g) + ')</option>';
+    }).join('') + LISTA_TEMAS.map(function (t) {
+      return '<option value="t' + t + '">' + GRUPOS['t' + t].t + ' (' + cuantas('t' + t) + ')</option>';
     }).join('');
-
+ 
     var mostrarOriginal = mostrar;
     mostrar = function (cual) {
       sec.hidden = cual !== 'desarrollo';
       mostrarOriginal(cual === 'desarrollo' ? '' : cual);
     };
-
+ 
     function limpiar(t) {
       t = String(t || '').toLowerCase();
       if (t.normalize) t = t.normalize('NFD').replace(new RegExp('[' + String.fromCharCode(768) + '-' + String.fromCharCode(879) + ']', 'g'), '');
       return ' ' + t.replace(/[^a-z0-9]+/g, ' ') + ' ';
     }
-
+    function esActual() { return !!ACTUALES[grupo]; }
+ 
     function armarRonda() {
-      var d = almacen.leer(), temas = temaSel ? [temaSel] : LISTA_TEMAS;
-      var total = Math.min(POR_RONDA, LISTA.filter(function (p) { return temas.indexOf(p.t) >= 0; }).length);
-      var usadas = {}, dentro = {}, out = [];
-      function tomarD(pool, k) {
-        var orden = barajar(pool.slice()).sort(function (a, b) { return (d.vis['C' + a.id] || 0) - (d.vis['C' + b.id] || 0); });
-        var res = [], repes = [];
-        orden.forEach(function (p) {
-          if (dentro[p.id]) return;
-          if (usadas[p.k]) { repes.push(p); return; }
-          if (res.length < k) { usadas[p.k] = true; res.push(p); }
+      var d = almacen.leer();
+      if (esActual()) {
+        ronda = ACTUALES[grupo].lista.slice();
+      } else {
+        var base = LISTA.filter(GRUPOS[grupo].f);
+        var temas = LISTA_TEMAS.filter(function (t) { return base.some(function (p) { return p.t === t; }); });
+        var total = Math.min(POR_RONDA, base.length);
+        var usadas = {}, dentro = {}, out = [];
+        var tomarD = function (pool, k) {
+          var orden = barajar(pool.slice()).sort(function (a, b) { return (d.vis['C' + a.id] || 0) - (d.vis['C' + b.id] || 0); });
+          var res = [], repes = [];
+          orden.forEach(function (p) {
+            if (dentro[p.id]) return;
+            if (usadas[p.k]) { repes.push(p); return; }
+            if (res.length < k) { usadas[p.k] = true; res.push(p); }
+          });
+          while (res.length < k && repes.length) res.push(repes.shift());
+          res.forEach(function (p) { dentro[p.id] = true; });
+          return res;
+        };
+        cuotas(total, temas).forEach(function (c) {
+          out = out.concat(tomarD(base.filter(function (p) { return p.t === c.t; }), c.n));
         });
-        while (res.length < k && repes.length) res.push(repes.shift());
-        res.forEach(function (p) { dentro[p.id] = true; });
-        return res;
+        if (out.length < total) out = out.concat(tomarD(base, total - out.length));
+        ronda = barajar(out);
       }
-      cuotas(total, temas).forEach(function (c) {
-        out = out.concat(tomarD(LISTA.filter(function (p) { return p.t === c.t; }), c.n));
-      });
-      if (out.length < total) out = out.concat(tomarD(LISTA.filter(function (p) { return temas.indexOf(p.t) >= 0; }), total - out.length));
-      ronda = barajar(out);
       ronda.forEach(function (p) { d.vis['C' + p.id] = (d.vis['C' + p.id] || 0) + 1; });
       almacen.guardar(d);
       hechas = {}; calificadaD = false; inicioD = Date.now();
       $('des-resultado').hidden = true;
       $('des-calificar').hidden = $('des-calificar-2').hidden = false;
+      $('des-fila').hidden = esActual();
+      $('des-titulo').textContent = esActual() ? ACTUALES[grupo].t : '✍️ Desarrollo: ' + GRUPOS[grupo].t;
+      $('des-sub').textContent = esActual()
+        ? 'Las preguntas del semestral del 7 de octubre de 2026, en el mismo orden del examen. Escribe la respuesta y toca «Comprobar» (o Enter).'
+        : 'Son las mismas preguntas del banco, pero sin opciones. Escribe la respuesta en pocas palabras y toca «Comprobar» (o Enter).';
+      if (!esActual()) sel.value = grupo;
       pintarD();
     }
-
+ 
     function veredicto(p) {
       var h = hechas[p.id];
       return '<div class="des-v ' + (h.ok ? 'bien' : 'mal') + '"><b class="t">' + (h.ok ? '✅ ¡Correcta!' : h.txt ? '❌ Incorrecta' : '⚪ Sin contestar') + '</b>' +
         '<b>Respuesta:</b> ' + respuesta(p) + '<span class="ex">' + p.e + '</span>' +
         (calificadaD ? '' : '<button class="des-cambio" type="button" data-cambio="' + p.id + '">' + (h.ok ? 'En realidad la tuve mal' : 'Mi respuesta sí estaba bien') + '</button>') + '</div>';
     }
-
+ 
     function tarjeta(p, n) {
       var h = hechas[p.id];
-      return '<div class="p-cab"><span class="p-num">' + n + '</span><span class="p-tema">' + EMO[p.t] + ' Tema ' + p.t + ' · ' + TEMAS[p.t] + '</span>' +
-        (p.sem ? '<span class="p-real sem">⭐ Salió en el semestral</span>' : '') + (p.real ? '<span class="p-real">📌 Salió en parcial</span>' : '') + '</div>' +
+      var chip = p.act ? '<span class="p-real act">📅 Semestral actual · ' + (p.o ? 'Escoger ' : 'Desarrollo ') + p.n + '</span>'
+        : (p.sem ? '<span class="p-real sem">⭐ Salió en el semestral</span>' : '') + (p.real ? '<span class="p-real">📌 Salió en parcial</span>' : '');
+      return '<div class="p-cab"><span class="p-num">' + n + '</span><span class="p-tema">' + EMO[p.t] + ' Tema ' + p.t + ' · ' + TEMAS[p.t] + '</span>' + chip + '</div>' +
         '<p class="p-q">' + p.q + '</p>' +
         '<div class="des-linea"><input class="des-in' + (h ? (h.ok ? ' bien' : ' mal') : '') + '" type="text" id="des-i' + p.id + '" data-in="' + p.id + '" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Tu respuesta…"' +
         (h ? ' readonly value="' + escapar(h.txt) + '"' : '') + '>' +
         (h ? '' : '<button class="btn primario" type="button" data-ok="' + p.id + '">Comprobar</button>') + '</div>' +
         (h ? veredicto(p) : '');
     }
-
+ 
     function pintarD() {
       var escrito = {};
       ronda.forEach(function (p) { var i = $('des-i' + p.id); if (i && !hechas[p.id]) escrito[p.id] = i.value; });
@@ -1723,13 +1793,13 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
       });
       avanceD();
     }
-
+ 
     function avanceD() {
       $('des-avance').textContent = ronda.filter(function (p) { return hechas[p.id]; }).length + ' / ' + ronda.length;
     }
     function buscar(id) { for (var i = 0; i < ronda.length; i++) if (ronda[i].id === id) return ronda[i]; return null; }
     function repintar(p) { $('des-p' + p.id).innerHTML = tarjeta(p, ronda.indexOf(p) + 1); avanceD(); }
-
+ 
     function comprobar(id, saltar) {
       var p = buscar(id);
       if (!p || hechas[id] || calificadaD) return;
@@ -1743,7 +1813,7 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
         }
       }
     }
-
+ 
     $('des-lista').addEventListener('click', function (ev) {
       var t = ev.target;
       if (t.getAttribute('data-ok')) comprobar(+t.getAttribute('data-ok'), false);
@@ -1755,7 +1825,7 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
     $('des-lista').addEventListener('keydown', function (ev) {
       if (ev.key === 'Enter' && ev.target.getAttribute('data-in')) { ev.preventDefault(); comprobar(+ev.target.getAttribute('data-in'), true); }
     });
-
+ 
     function calificarD() {
       if (calificadaD || !ronda.length) return;
       var r = $('des-resultado');
@@ -1774,12 +1844,14 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
         if (hechas[p.id].ok) { buenas++; porT[p.t].b++; }
       });
       var n = ronda.length, nota = Math.round(buenas / n * 100), L = letraDe(nota);
+      var etiqueta = esActual() ? ACTUALES[grupo].t : '✍️ Desarrollo' + (grupo === 'todos' ? '' : ' · ' + GRUPOS[grupo].t);
       var d = almacen.leer();
-      d.intentos.unshift({ f: Date.now(), est: 1, tipo: 'desarrollo', etiqueta: '✍️ Desarrollo' + (temaSel ? ' · Tema ' + temaSel : ''),
+      d.intentos.unshift({ f: Date.now(), est: 1, tipo: 'desarrollo', etiqueta: etiqueta,
         n: n, buenas: buenas, contestadas: contestadas, nota: nota, seg: Math.round((Date.now() - inicioD) / 1000) });
       d.intentos = d.intentos.slice(0, 40);
       almacen.guardar(d);
-
+ 
+      var puntos = esActual() && ACTUALES[grupo].puntos ? ' En el examen real eso serían ' + (Math.round(buenas / n * ACTUALES[grupo].puntos * 10) / 10) + ' de ' + ACTUALES[grupo].puntos + ' puntos.' : '';
       var temas = Object.keys(porT).map(Number).sort(function (a, b) { return a - b; });
       var flojos = temas.filter(function (t) { return porT[t].b / porT[t].n * 100 < PASA; });
       r.className = 'resultado g' + L;
@@ -1787,9 +1859,9 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
         '</div><h2>' + NOTAS[L].t + '</h2></div></div>' +
         '<p class="nota">' + nota + '<small> / 100</small></p>' +
         '<p class="detalle">✅ <b>' + buenas + '</b> buenas de ' + n + ' · ❌ ' + (contestadas - buenas) + ' malas · ⚪ ' + (n - contestadas) + ' sin contestar · ⏱️ ' +
-        duracion(Math.round((Date.now() - inicioD) / 1000)) + '</p>' +
+        duracion(Math.round((Date.now() - inicioD) / 1000)) + '.' + puntos + '</p>' +
         (flojos.length ? '<p class="repasa"><b>📖 Repasa primero:</b> ' + flojos.slice(0, 4).map(function (t) { return 'Tema ' + t + ' (' + TEMAS[t] + ')'; }).join(', ') + '.</p>' : '') +
-        '<div class="acciones"><button class="btn primario" type="button" id="des-otra">🔀 Otra ronda</button>' +
+        '<div class="acciones"><button class="btn primario" type="button" id="des-otra">' + (esActual() ? '🔁 Hacerlo otra vez' : '🔀 Otra ronda') + '</button>' +
         '<button class="btn" type="button" id="des-menu">Volver al menú</button></div>';
       r.hidden = false;
       $('des-calificar').hidden = $('des-calificar-2').hidden = true;
@@ -1799,35 +1871,79 @@ var PESO = {"1": 6, "2": 5, "3": 8, "4": 11, "5": 4, "6": 5, "7": 13, "8": 6, "9
       $('des-otra').addEventListener('click', function () { armarRonda(); window.scrollTo({ top: 0 }); });
       $('des-menu').addEventListener('click', salirD);
     }
-
+ 
     function salirD() { pintarInicio(); mostrar('inicio'); }
-    function abrirD() { armarRonda(); mostrar('desarrollo'); }
-
+    function abrirD(g) { grupo = g || 'todos'; armarRonda(); mostrar('desarrollo'); }
+ 
     $('des-volver').addEventListener('click', salirD);
     $('des-calificar').addEventListener('click', calificarD);
     $('des-calificar-2').addEventListener('click', calificarD);
     $('des-nuevas').addEventListener('click', function () { armarRonda(); window.scrollTo({ top: 0 }); });
-    sel.addEventListener('change', function () { temaSel = +sel.value; armarRonda(); });
-
-    /* tarjeta en el menú */
-    function ponerTarjeta() {
-      var cont = $('modos');
-      if (!cont || $('des-entrada')) return;
+    sel.addEventListener('change', function () { grupo = sel.value; armarRonda(); });
+ 
+    /* tarjetas */
+    function tarjetaMenu(cont, id, clase, ico, titulo, texto, nota, alClic) {
       var b = document.createElement('button');
-      b.className = 'modo-c t5';
+      b.className = 'modo-c ' + clase;
       b.type = 'button';
-      b.id = 'des-entrada';
-      b.innerHTML = '<span class="ico" aria-hidden="true">✍️</span><span class="t">Desarrollo: respuesta corta</span>' +
-        '<span class="d">Por si el profe pone desarrollo: las mismas preguntas, pero sin opciones. Tú escribes la respuesta y te la corrige.</span>' +
-        '<span class="n">Desarrollo · ' + POR_RONDA + ' por ronda · ' + LISTA.length + ' preguntas</span>';
-      b.addEventListener('click', abrirD);
+      b.id = id;
+      b.innerHTML = '<span class="ico" aria-hidden="true">' + ico + '</span><span class="t">' + titulo + '</span><span class="d">' + texto + '</span><span class="n">' + nota + '</span>';
+      b.addEventListener('click', alClic);
       cont.appendChild(b);
     }
+    function ponerTarjetas() {
+      var cont = $('modos');
+      if (!cont || $('des-entrada')) return;
+      tarjetaMenu(cont, 'des-entrada', 't5', '✍️', 'Desarrollo: respuesta corta',
+        'Por si el profe pone desarrollo: las mismas preguntas, pero sin opciones. Tú escribes la respuesta y te la corrige.',
+        'Desarrollo · ' + POR_RONDA + ' por ronda · ' + LISTA.length + ' preguntas', function () { abrirD('todos'); });
+      tarjetaMenu(cont, 'des-profeta', 't12', '⭐', 'Profeta del semestral, escrito',
+        'Las preguntas del Profeta del semestral sin opciones: escribes la respuesta.',
+        'Desarrollo · ' + cuantas('profeta') + ' preguntas', function () { abrirD('profeta'); });
+      tarjetaMenu(cont, 'des-pesados', 't13', '🏋️', 'Lo que más pesa, escrito',
+        'Temas 14, 7, 4 y 10 sin opciones: escribes la respuesta.',
+        'Desarrollo · ' + cuantas('pesados') + ' preguntas', function () { abrirD('pesados'); });
+    }
+ 
+    /* recuadro del semestral actual */
+    (function () {
+      var modos = $('modos');
+      if (!modos) return;
+      var bloque = modos.closest('.bloque');
+      var caja = document.createElement('section');
+      caja.className = 'bloque';
+      caja.id = 'actual-bloque';
+      caja.innerHTML = '<h2>📅 Semestral actual</h2><p class="sub">Las preguntas del semestral del 7 de octubre de 2026 que se ven en las fotos: 20 de desarrollo (60 puntos) y 15 de escoger la mejor respuesta (20 puntos).</p><div class="modos" id="actual-modos"></div>';
+      bloque.parentNode.insertBefore(caja, bloque.nextSibling);
+      var cont = $('actual-modos');
+      tarjetaMenu(cont, 'act-des', 't10', '✍️', 'Desarrollo del semestral actual',
+        'Las 20 preguntas de desarrollo, en el mismo orden del examen. Escribes la respuesta y te la corrige.',
+        'Desarrollo · 20 preguntas · 60 puntos', function () { abrirD('act_des'); });
+      tarjetaMenu(cont, 'act-mcq', 't7', '📝', 'Escoja la mejor respuesta',
+        'Las 15 preguntas de selección del examen, con sus mismas opciones.',
+        'Examen · 15 preguntas', function () {
+          empezar({ id: 'actual-escoger', t: '📅 Semestral actual · Escoja la mejor respuesta', fijo: true, arma: function () { return ACT_MCQ.slice(); } });
+        });
+      tarjetaMenu(cont, 'act-todo', 't1', '🧠', 'Las 35 escritas',
+        'Todo el semestral actual sin opciones: las 20 de desarrollo y las 15 de escoger, escribiendo la respuesta.',
+        'Desarrollo · 35 preguntas', function () { abrirD('act_todo'); });
+    })();
+ 
+    /* el «Escoja la mejor respuesta» del semestral actual es corto: no se guarda como práctica pendiente */
+    function sinPendiente() {
+      if (!estado.fuente || estado.fuente.id !== 'actual-escoger') return;
+      try { localStorage.removeItem('neuro-semestral-pendiente-v1:' + (CON_CUENTAS ? (usuario || '') : 'unico')); } catch (e) {}
+    }
+    var cargarD = cargar, ponerModoD = ponerModo;
+    cargar = function (a, b) { cargarD(a, b); sinPendiente(); };
+    ponerModo = function (m) { ponerModoD(m); sinPendiente(); };
+    $lista.addEventListener('change', sinPendiente);
+ 
     var pintarInicioAntes = pintarInicio;
-    pintarInicio = function () { pintarInicioAntes(); ponerTarjeta(); };
-    ponerTarjeta();
+    pintarInicio = function () { pintarInicioAntes(); ponerTarjetas(); };
+    ponerTarjetas();
   })();
-  /* ===== PREGUNTAS DE DESARROLLO, RESPUESTA CORTA (fin del bloque) ===== */
+  /* ===== PREGUNTAS DE DESARROLLO Y SEMESTRAL ACTUAL (fin del bloque) ===== */
 })();
 </script>
 </body>
